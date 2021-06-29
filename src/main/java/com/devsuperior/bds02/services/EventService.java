@@ -23,6 +23,7 @@ public class EventService {
 			entity.setName(dto.getName());
 			entity.setDate(dto.getDate());
 			entity.setUrl(dto.getUrl());
+			entity.setCity(dto.getCityId());
 			entity = repository.save(entity);
 			return new EventDTO(entity);
 		} catch (EntityNotFoundException e){
