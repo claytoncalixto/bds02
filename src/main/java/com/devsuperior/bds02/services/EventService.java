@@ -8,13 +8,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.devsuperior.bds02.dto.EventDTO;
 import com.devsuperior.bds02.entities.Event;
+import com.devsuperior.bds02.repositories.CityRepository;
 import com.devsuperior.bds02.repositories.EventRepository;
+import com.devsuperior.bds02.services.excepitions.ResourceNotFoundException;
 
 @Service
 public class EventService {
 	
 	@Autowired
 	private EventRepository repository;
+	
+	@Autowired
+	private CityRepository cityRepository;
 	
 	@Transactional
 	public EventDTO update(Long id, EventDTO dto) throws Exception {
@@ -23,11 +28,11 @@ public class EventService {
 			entity.setName(dto.getName());
 			entity.setDate(dto.getDate());
 			entity.setUrl(dto.getUrl());
-			entity.setCity(dto.getCityId());
+			entity.setCity(cityRepository.getOne(id));
 			entity = repository.save(entity);
 			return new EventDTO(entity);
 		} catch (EntityNotFoundException e){
-			throw new Exception("Id not found " + id);
+			throw new ResourceNotFoundException("Id not found " + id);
 		}
 	}
 

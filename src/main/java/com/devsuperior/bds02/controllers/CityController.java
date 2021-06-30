@@ -1,8 +1,8 @@
 package com.devsuperior.bds02.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +22,8 @@ public class CityController {
 	
 	
 	@GetMapping
-	public ResponseEntity<Page<CityDTO>> findAll(Pageable pageable) {			
-		Page<CityDTO> list = service.findAllPaged(pageable);		
+	public ResponseEntity<List<CityDTO>> findAll() {			
+		List<CityDTO> list = service.findAll();		
 		return ResponseEntity.ok().body(list);
 	}	
 
